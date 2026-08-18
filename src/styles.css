@@ -1,0 +1,62 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Maison Claude — Atelier Noir design system.
+ * Ink black, ivory cream, champagne accent.
+ */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-ivory: var(--ivory);
+  --color-champagne: var(--champagne);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-primary: var(--ivory);
+  --color-primary-foreground: var(--ink);
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --ink: oklch(0.14 0.005 280);
+  --ivory: oklch(0.95 0.01 90);
+  --champagne: oklch(0.78 0.09 90);
+  --surface: oklch(0.19 0.005 280);
+  --background: var(--ink);
+  --foreground: var(--ivory);
+  --muted: oklch(0.25 0.005 280);
+  --muted-foreground: oklch(0.65 0.01 90);
+  --border: oklch(1 0 0 / 8%);
+  --radius: 0px;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background-color: oklch(0.78 0.09 90 / 0.3);
+  }
+}
+
+@utility reveal-up {
+  animation: reveal-up 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
