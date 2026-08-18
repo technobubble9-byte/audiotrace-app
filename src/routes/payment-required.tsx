@@ -20,7 +20,7 @@ export const Route = createFileRoute("/payment-required")({
 function PaymentRequiredPage() {
   const { ref, status, error } = useSearch({ from: "/payment-required" });
   const [currentStatus, setCurrentStatus] = useState(status);
-  const [checkoutLoading, setCheckoutLoading] = useState<"STANDARD" | "ULTIMATE" | null>(null);
+  const [checkoutLoading, setCheckoutLoading] = useState<"BASIC" | "PRO" | "ELITE" | null>(null);
   const [checkoutError, setCheckoutError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -41,7 +41,7 @@ function PaymentRequiredPage() {
     return () => clearInterval(interval);
   }, [ref, currentStatus]);
 
-  async function startCheckout(plan: "STANDARD" | "ULTIMATE") {
+  async function startCheckout(plan: "BASIC" | "PRO" | "ELITE") {
     setCheckoutError(null);
     setCheckoutLoading(plan);
     try {
@@ -104,21 +104,28 @@ function PaymentRequiredPage() {
         </CardHeader>
         <CardContent>
           {checkoutError && <p className="mb-4 text-center text-sm text-destructive">{checkoutError}</p>}
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <PlanCard
-              name="Standard"
-              price="$10.99/mo"
-              features={["50 Secure Generations per month", "Bulk Scan Tools", "Standard Email Support"]}
-              loading={checkoutLoading === "STANDARD"}
-              onSelect={() => startCheckout("STANDARD")}
+              name="Basic"
+              price="$4.99/mo"
+              features={["15 Secure Generations per month", "Standard Email Support"]}
+              loading={checkoutLoading === "BASIC"}
+              onSelect={() => startCheckout("BASIC")}
             />
             <PlanCard
-              name="Ultimate"
+              name="Pro"
+              price="$9.99/mo"
+              features={["50 Secure Generations per month", "Bulk Scan Tools", "Standard Email Support"]}
+              loading={checkoutLoading === "PRO"}
+              onSelect={() => startCheckout("PRO")}
+            />
+            <PlanCard
+              name="Elite"
               price="$16.99/mo"
               features={["Unlimited Secure Generations", "Optional Monitoring", "Priority Support", "API Access"]}
               highlighted
-              loading={checkoutLoading === "ULTIMATE"}
-              onSelect={() => startCheckout("ULTIMATE")}
+              loading={checkoutLoading === "ELITE"}
+              onSelect={() => startCheckout("ELITE")}
             />
           </div>
         </CardContent>

@@ -5,12 +5,13 @@
 //   DODO_PAYMENTS_API_KEY       - secret key, server-only, never logged
 //   DODO_PAYMENTS_WEBHOOK_SECRET - from Dodo dashboard → Developer → Webhooks
 //   DODO_ENVIRONMENT            - "test_mode" or "live_mode"
-//   DODO_PRODUCT_ID_STANDARD    - product id for the Standard tier
-//   DODO_PRODUCT_ID_ULTIMATE    - product id for the Ultimate tier
+//   DODO_PRODUCT_ID_BASIC       - product id for the Basic tier
+//   DODO_PRODUCT_ID_PRO         - product id for the Pro tier
+//   DODO_PRODUCT_ID_ELITE       - product id for the Elite tier
 
 import DodoPayments from "dodopayments";
 
-export type PlanKey = "STANDARD" | "ULTIMATE";
+export type PlanKey = "BASIC" | "PRO" | "ELITE";
 
 function getEnv(name: string): string {
   const v = process.env[name];
@@ -30,8 +31,9 @@ function getClient(): DodoPayments {
 }
 
 function productIdForPlan(plan: PlanKey): string {
-  if (plan === "STANDARD") return getEnv("DODO_PRODUCT_ID_STANDARD");
-  if (plan === "ULTIMATE") return getEnv("DODO_PRODUCT_ID_ULTIMATE");
+  if (plan === "BASIC") return getEnv("DODO_PRODUCT_ID_BASIC");
+  if (plan === "PRO") return getEnv("DODO_PRODUCT_ID_PRO");
+  if (plan === "ELITE") return getEnv("DODO_PRODUCT_ID_ELITE");
   throw new Error(`Unknown plan: ${plan}`);
 }
 

@@ -128,7 +128,7 @@ session. Ask if/when you want that built.
 See `.env.example` for the full list. `WATERMARK_SECRET` is described
 above. `SESSION_SECRET` signs the login-session cookie. For the payment
 flow, you also need `DODO_PAYMENTS_API_KEY`, `DODO_PAYMENTS_WEBHOOK_SECRET`,
-`DODO_ENVIRONMENT`, `DODO_PRODUCT_ID_STANDARD`, `DODO_PRODUCT_ID_ULTIMATE`,
+`DODO_ENVIRONMENT`, `DODO_PRODUCT_ID_BASIC`, `DODO_PRODUCT_ID_PRO`, `DODO_PRODUCT_ID_ELITE`,
 `PUBLIC_APP_URL`, and `MARKETING_SITE_ORIGINS`.
 
 ## Payments: Dodo dashboard setup
@@ -169,8 +169,8 @@ list of what this lightweight gate does and doesn't do.
 ### Setting this up in your Dodo dashboard
 
 1. **Products** → find (or create) your Standard and Ultimate products,
-   copy their product IDs into `DODO_PRODUCT_ID_STANDARD` /
-   `DODO_PRODUCT_ID_ULTIMATE`.
+   copy their product IDs into `DODO_PRODUCT_ID_BASIC`,
+   `DODO_PRODUCT_ID_PRO`, and `DODO_PRODUCT_ID_ELITE`.
 2. **Developer → API Keys** → your secret key → `DODO_PAYMENTS_API_KEY`.
 3. **Developer → Webhooks** → add endpoint `https://app.audiotrace.tech/api/webhooks/dodo`
    → copy the generated signing secret → `DODO_PAYMENTS_WEBHOOK_SECRET`.

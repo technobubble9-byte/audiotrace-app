@@ -85,8 +85,8 @@ async function handleCreateCheckout(request: Request): Promise<Response> {
   }
 
   const plan = (body.plan || "").toUpperCase();
-  if (plan !== "STANDARD" && plan !== "ULTIMATE") {
-    return Response.json({ error: "plan must be STANDARD or ULTIMATE" }, { status: 422, headers: cors });
+  if (plan !== "BASIC" && plan !== "PRO" && plan !== "ELITE") {
+    return Response.json({ error: "plan must be BASIC, PRO, or ELITE" }, { status: 422, headers: cors });
   }
 
   const checkoutRef = randomUUID();
