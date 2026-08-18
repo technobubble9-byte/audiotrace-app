@@ -12,4 +12,11 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // Force a standard Node.js server build instead of the cloudflare-module
+  // default. This app depends on better-sqlite3 (native addon) and shells
+  // out to the ffmpeg/ffprobe CLIs — neither works on Cloudflare Workers.
+  // Deploy this to a real Node host (Railway, Fly.io, Render, a VPS).
+  nitro: {
+    preset: "node-server",
+  },
 });

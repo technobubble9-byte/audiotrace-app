@@ -9,30 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
-import { Route as LoginRouteImport } from './routes/login'
-import { Route as PaymentRequiredRouteImport } from './routes/payment-required'
 import { Route as SignupRouteImport } from './routes/signup'
+import { Route as PaymentRequiredRouteImport } from './routes/payment-required'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as DashboardRouteRouteImport } from './routes/dashboard/route'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardIndexRouteImport } from './routes/dashboard/index'
-import { Route as DashboardProtectedFilesRouteImport } from './routes/dashboard/protected-files'
-import { Route as DashboardRecipientsRouteImport } from './routes/dashboard/recipients'
-import { Route as DashboardTraceRouteImport } from './routes/dashboard/trace'
 import { Route as DashboardUploadsRouteImport } from './routes/dashboard/uploads'
+import { Route as DashboardTraceRouteImport } from './routes/dashboard/trace'
+import { Route as DashboardRecipientsRouteImport } from './routes/dashboard/recipients'
+import { Route as DashboardProtectedFilesRouteImport } from './routes/dashboard/protected-files'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DashboardRouteRoute = DashboardRouteRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PaymentRequiredRoute = PaymentRequiredRouteImport.update({
@@ -40,9 +30,19 @@ const PaymentRequiredRoute = PaymentRequiredRouteImport.update({
   path: '/payment-required',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SignupRoute = SignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRouteRoute = DashboardRouteRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
@@ -50,14 +50,9 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: '/',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-const DashboardProtectedFilesRoute = DashboardProtectedFilesRouteImport.update({
-  id: '/protected-files',
-  path: '/protected-files',
-  getParentRoute: () => DashboardRouteRoute,
-} as any)
-const DashboardRecipientsRoute = DashboardRecipientsRouteImport.update({
-  id: '/recipients',
-  path: '/recipients',
+const DashboardUploadsRoute = DashboardUploadsRouteImport.update({
+  id: '/uploads',
+  path: '/uploads',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 const DashboardTraceRoute = DashboardTraceRouteImport.update({
@@ -65,9 +60,14 @@ const DashboardTraceRoute = DashboardTraceRouteImport.update({
   path: '/trace',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
-const DashboardUploadsRoute = DashboardUploadsRouteImport.update({
-  id: '/uploads',
-  path: '/uploads',
+const DashboardRecipientsRoute = DashboardRecipientsRouteImport.update({
+  id: '/recipients',
+  path: '/recipients',
+  getParentRoute: () => DashboardRouteRoute,
+} as any)
+const DashboardProtectedFilesRoute = DashboardProtectedFilesRouteImport.update({
+  id: '/protected-files',
+  path: '/protected-files',
   getParentRoute: () => DashboardRouteRoute,
 } as any)
 
@@ -155,25 +155,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/payment-required': {
@@ -183,11 +169,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PaymentRequiredRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/signup': {
-      id: '/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof SignupRouteImport
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard/': {
@@ -197,18 +197,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardIndexRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/protected-files': {
-      id: '/dashboard/protected-files'
-      path: '/protected-files'
-      fullPath: '/dashboard/protected-files'
-      preLoaderRoute: typeof DashboardProtectedFilesRouteImport
-      parentRoute: typeof DashboardRouteRoute
-    }
-    '/dashboard/recipients': {
-      id: '/dashboard/recipients'
-      path: '/recipients'
-      fullPath: '/dashboard/recipients'
-      preLoaderRoute: typeof DashboardRecipientsRouteImport
+    '/dashboard/uploads': {
+      id: '/dashboard/uploads'
+      path: '/uploads'
+      fullPath: '/dashboard/uploads'
+      preLoaderRoute: typeof DashboardUploadsRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
     '/dashboard/trace': {
@@ -218,11 +211,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardTraceRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
-    '/dashboard/uploads': {
-      id: '/dashboard/uploads'
-      path: '/uploads'
-      fullPath: '/dashboard/uploads'
-      preLoaderRoute: typeof DashboardUploadsRouteImport
+    '/dashboard/recipients': {
+      id: '/dashboard/recipients'
+      path: '/recipients'
+      fullPath: '/dashboard/recipients'
+      preLoaderRoute: typeof DashboardRecipientsRouteImport
+      parentRoute: typeof DashboardRouteRoute
+    }
+    '/dashboard/protected-files': {
+      id: '/dashboard/protected-files'
+      path: '/protected-files'
+      fullPath: '/dashboard/protected-files'
+      preLoaderRoute: typeof DashboardProtectedFilesRouteImport
       parentRoute: typeof DashboardRouteRoute
     }
   }

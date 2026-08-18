@@ -1,0 +1,8 @@
+# Tells Railway's default builder (Nixpacks) to install ffmpeg/ffprobe in
+# the build image. Without this, audio format conversion (transcode.server.ts)
+# fails at runtime because the ffmpeg binary won't exist on PATH.
+[phases.setup]
+aptPkgs = ["ffmpeg"]
+
+[start]
+cmd = "node .output/server/index.mjs"
