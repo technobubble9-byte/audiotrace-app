@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { FileDropzone } from "@/components/file-dropzone";
 import {
   Select,
   SelectContent,
@@ -125,27 +126,16 @@ function ProtectWorkflowPage() {
           <CardDescription>WAV, MP3, FLAC, AIFF, M4A, or OGG. You must own or be authorized to distribute this content.</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
-          <div className="flex flex-wrap items-center gap-3">
-            <Button asChild variant="outline" disabled={uploadMutation.isPending}>
-              <label className="cursor-pointer">
-                {uploadMutation.isPending ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
-                ) : (
-                  <Upload className="h-4 w-4" />
-                )}
-                {uploadMutation.isPending ? "Uploading..." : "Choose audio file"}
-                <input
-                  type="file"
-                  accept=".wav,.mp3,.flac,.aiff,.aif,.m4a,.ogg,audio/*"
-                  className="hidden"
-                  onChange={(e) => {
-                    const file = e.target.files?.[0];
-                    if (file) uploadMutation.mutate(file);
-                    e.target.value = "";
-                  }}
-                />
-              </label>
-            </Button>
+          <div className="flex flex-wrap items-start gap-3">
+            <div className="w-full sm:w-auto sm:min-w-[280px]">
+              <FileDropzone
+                accept=".wav,.mp3,.flac,.aiff,.aif,.m4a,.ogg,audio/*"
+                isLoading={uploadMutation.isPending}
+                loadingLabel="Uploading..."
+                idleLabel="Choose audio file"
+                onFile={(file) => uploadMutation.mutate(file)}
+              />
+            </div>
 
             <div className="min-w-[220px] flex-1">
               <Label className="mb-1.5 block text-xs text-muted-foreground">Or pick a previous upload</Label>

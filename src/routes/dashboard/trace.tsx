@@ -12,8 +12,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { FileDropzone } from "@/components/file-dropzone";
 
 import { getTraceScans, scanForFingerprint } from "@/lib/api/trace.functions";
 import { fileToBase64 } from "@/lib/audio-client-utils";
@@ -58,22 +58,15 @@ function TracePage() {
           <CardDescription>Blind detection — no original master required.</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-4">
-          <Button asChild variant="outline" className="w-fit" disabled={scanMutation.isPending}>
-            <label className="cursor-pointer">
-              {scanMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
-              {scanMutation.isPending ? "Scanning..." : "Upload suspect file"}
-              <input
-                type="file"
-                accept=".wav,.mp3,.flac,.aiff,.aif,.m4a,.ogg,audio/*"
-                className="hidden"
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) scanMutation.mutate(file);
-                  e.target.value = "";
-                }}
-              />
-            </label>
-          </Button>
+          <div className="max-w-sm">
+            <FileDropzone
+              accept=".wav,.mp3,.flac,.aiff,.aif,.m4a,.ogg,audio/*"
+              isLoading={scanMutation.isPending}
+              loadingLabel="Scanning..."
+              idleLabel="Upload suspect file"
+              onFile={(file) => scanMutation.mutate(file)}
+            />
+          </div>
 
           {error && (
             <p className="flex items-center gap-1.5 text-sm text-destructive">
